@@ -20,8 +20,8 @@ export const Hero = () => {
           {/* Text Content */}
           <div className="space-y-6 sm:space-y-8 animate-fade-in order-2 lg:order-1">
             <div className="space-y-4 sm:space-y-6">
-              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold text-primary tracking-tight">
-                CODESPACE
+              <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-primary tracking-tight font-heading">
+                CodeSpace
               </h1>
               <p className="text-base sm:text-lg lg:text-xl xl:text-2xl text-muted-foreground max-w-lg font-semibold">
                 A hub for tech enthusiasts to explore, innovate, and create the future together!
