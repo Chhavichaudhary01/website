@@ -1,38 +1,12 @@
 import { Calendar, User, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-
-const blogPosts = [
-  {
-    title: "Hackathon 2024: Breaking Records",
-    excerpt: "Our annual hackathon saw unprecedented participation with over 200 students building innovative solutions.",
-    author: "Tech Team",
-    date: "March 10, 2024",
-    category: "Events",
-  },
-  {
-    title: "Introduction to Machine Learning Workshop",
-    excerpt: "A comprehensive guide to getting started with ML frameworks and building your first neural network.",
-    author: "AI Chapter",
-    date: "March 5, 2024",
-    category: "Workshops",
-  },
-  {
-    title: "Web3 and Blockchain: The Future",
-    excerpt: "Exploring decentralized technologies and how they're reshaping the digital landscape.",
-    author: "Blockchain Team",
-    date: "February 28, 2024",
-    category: "Articles",
-  },
-  {
-    title: "CodeSpace Wins University Tech Fest",
-    excerpt: "Our team secured first place in the inter-college coding competition with groundbreaking projects.",
-    author: "Competition Team",
-    date: "February 20, 2024",
-    category: "News",
-  },
-];
+import { Link } from "react-router-dom";
+import { blogPosts } from "@/data/blogPosts";
 
 export const BlogSection = () => {
+  // Show only first 4 posts on home page
+  const featuredPosts = blogPosts.slice(0, 4);
+  
   return (
     <section className="py-20 sm:py-32 relative">
       {/* SVG Filter for glassmorphism */}
@@ -71,18 +45,22 @@ export const BlogSection = () => {
 
           {/* Blog Grid */}
           <div className="grid md:grid-cols-2 gap-6 sm:gap-8">
-            {blogPosts.map((post, index) => (
-              <div
-                key={index}
-                className="relative overflow-hidden rounded-[28px] p-6 sm:p-8 lg:p-10 transition-all duration-500"
-                style={{
-                  filter: "drop-shadow(-8px -10px 46px rgba(0, 0, 0, 0.37))",
-                  backdropFilter:
-                    "brightness(1.1) blur(9px) url(#blogDisplacementFilter)",
-                  WebkitBackdropFilter: "brightness(1.1) blur(9px)",
-                  background: "hsl(var(--glass-bg))",
-                }}
+            {featuredPosts.map((post) => (
+              <Link
+                key={post.id}
+                to={`/blog/${post.id}`}
+                className="block group"
               >
+                <div
+                  className="relative overflow-hidden rounded-[28px] p-6 sm:p-8 lg:p-10 transition-all duration-500 hover:scale-[1.02]"
+                  style={{
+                    filter: "drop-shadow(-8px -10px 46px rgba(0, 0, 0, 0.37))",
+                    backdropFilter:
+                      "brightness(1.1) blur(9px) url(#blogDisplacementFilter)",
+                    WebkitBackdropFilter: "brightness(1.1) blur(9px)",
+                    background: "hsl(var(--glass-bg))",
+                  }}
+                >
                 {/* Glassmorphic border effect */}
                 <div
                   className="absolute inset-0 rounded-[28px] pointer-events-none"
@@ -102,7 +80,7 @@ export const BlogSection = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-xl sm:text-2xl font-bold text-foreground leading-tight">
+                  <h3 className="text-xl sm:text-2xl font-bold text-foreground group-hover:text-primary transition-colors leading-tight">
                     {post.title}
                   </h3>
 
@@ -124,29 +102,27 @@ export const BlogSection = () => {
                   </div>
 
                   {/* Read More */}
-                  <div className="pt-2">
-                    <Button
-                      variant="ghost"
-                      className="text-primary p-0 h-auto font-semibold group"
-                    >
-                      Read More
-                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                    </Button>
+                  <div className="flex items-center gap-2 text-primary font-bold text-sm group-hover:gap-3 transition-all pt-2">
+                    Read More
+                    <ArrowRight className="w-4 h-4" />
                   </div>
                 </div>
               </div>
+              </Link>
             ))}
           </div>
 
           {/* View All Button */}
           <div className="text-center pt-4">
-            <Button
-              size="lg"
-              className="bg-primary text-primary-foreground"
-            >
-              View All Posts
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
+            <Link to="/blogs">
+              <Button
+                size="lg"
+                className="bg-primary text-primary-foreground"
+              >
+                View All Posts
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
