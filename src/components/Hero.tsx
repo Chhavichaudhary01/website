@@ -18,7 +18,7 @@ export const Hero = () => {
               <img 
                 src={logo} 
                 alt="CodeSpace Club Logo" 
-                className="w-72 h-72 sm:w-96 sm:h-96 object-contain relative z-10"
+                className="w-[42rem] h-[42rem] sm:w-[55rem] sm:h-[55rem] object-contain relative z-10"
               />
             </div>
           </div>
@@ -58,7 +58,7 @@ export const Hero = () => {
               <img 
                 src={logo} 
                 alt="CodeSpace Club Logo" 
-                className="w-96 h-96 lg:w-[28rem] lg:h-[28rem] object-contain relative z-10"
+                className="w-[55rem] h-[55rem] lg:w-[64rem] lg:h-[64rem] object-contain relative z-10"
               />
             </div>
           </div>
