@@ -12,6 +12,7 @@ const navItems = [
 export const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -22,60 +23,105 @@ export const Header = () => {
   }, []);
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "backdrop-blur-glass bg-[hsl(var(--glass-bg))] border-b border-[hsl(var(--glass-border))] shadow-lg"
-          : ""
-      }`}
-    >
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20">
-          {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-1 mx-auto">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.path}
-                to={item.path}
-                end
-                className="px-6 py-2.5 rounded-full text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground hover:bg-secondary/50"
-                activeClassName="text-primary bg-secondary/70 shadow-glow"
-              >
-                {item.name}
-              </NavLink>
-            ))}
-          </div>
+    <>
+      {/* SVG Filter for Glassmorphism */}
+      <svg style={{ display: 'none' }}>
+        <filter id="displacementFilter">
+          <feTurbulence 
+            type="turbulence" 
+            baseFrequency="0.01" 
+            numOctaves="2" 
+            result="turbulence" 
+          />
+          <feDisplacementMap 
+            in="SourceGraphic"
+            in2="turbulence"    
+            scale="50" 
+            xChannelSelector="R" 
+            yChannelSelector="G" 
+          />
+        </filter>
+      </svg>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className="md:hidden p-2 rounded-lg text-foreground hover:bg-secondary/50 transition-colors ml-auto"
-            aria-label="Toggle menu"
+      <header
+        className={`fixed top-4 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out ${
+          isScrolled || isHovered ? "scale-100" : "scale-95"
+        }`}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <nav className="relative">
+          {/* Dynamic Island Container */}
+          <div 
+            className={`
+              relative overflow-hidden
+              transition-all duration-500 ease-out
+              ${isMobileMenuOpen ? "rounded-3xl px-8 py-6" : "rounded-full px-8 py-3"}
+              border border-white/50
+              backdrop-blur-[9px] [-webkit-backdrop-filter:blur(9px)]
+              bg-background/10
+              shadow-[0_-8px_46px_rgba(0,0,0,0.37)]
+              before:content-[''] before:absolute before:inset-0 before:rounded-[inherit]
+              before:shadow-[inset_6px_6px_0px_-6px_rgba(255,255,255,0.7),inset_0_0_8px_1px_rgba(255,255,255,0.7)]
+              hover:shadow-[0_0_40px_rgba(255,107,0,0.3)]
+              ${isScrolled ? "brightness-110" : "brightness-100"}
+            `}
+            style={{
+              filter: 'drop-shadow(-8px -10px 46px rgba(0, 0, 0, 0.37))',
+              backdropFilter: 'brightness(1.1) blur(9px) url(#displacementFilter)',
+              WebkitBackdropFilter: 'brightness(1.1) blur(9px)',
+            }}
           >
-            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-
-        {/* Mobile Navigation */}
-        {isMobileMenuOpen && (
-          <div className="md:hidden pb-4 animate-fade-in">
-            <div className="flex flex-col space-y-2 backdrop-blur-glass bg-[hsl(var(--glass-bg))] rounded-lg p-4 border border-[hsl(var(--glass-border))]">
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex items-center space-x-1 relative z-10">
               {navItems.map((item) => (
                 <NavLink
                   key={item.path}
                   to={item.path}
                   end
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-2.5 rounded-lg text-sm font-medium text-muted-foreground transition-all duration-300 hover:text-foreground hover:bg-secondary/50"
-                  activeClassName="text-primary bg-secondary/70"
+                  className="px-5 py-2 rounded-full text-xs font-semibold text-muted-foreground 
+                    transition-all duration-300 ease-out
+                    hover:text-foreground hover:bg-white/10 hover:scale-105"
+                  activeClassName="text-primary bg-white/15 shadow-glow scale-105"
                 >
                   {item.name}
                 </NavLink>
               ))}
             </div>
+
+            {/* Mobile Menu Button */}
+            <button
+              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              className="md:hidden p-2 rounded-full text-foreground 
+                hover:bg-white/10 transition-all duration-300 hover:scale-110 relative z-10"
+              aria-label="Toggle menu"
+            >
+              {isMobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            </button>
+
+            {/* Mobile Navigation */}
+            {isMobileMenuOpen && (
+              <div className="md:hidden mt-4 animate-fade-in relative z-10">
+                <div className="flex flex-col space-y-2">
+                  {navItems.map((item) => (
+                    <NavLink
+                      key={item.path}
+                      to={item.path}
+                      end
+                      onClick={() => setIsMobileMenuOpen(false)}
+                      className="px-4 py-2.5 rounded-full text-sm font-medium text-muted-foreground 
+                        transition-all duration-300 hover:text-foreground hover:bg-white/10"
+                      activeClassName="text-primary bg-white/15"
+                    >
+                      {item.name}
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
-        )}
-      </nav>
-    </header>
+        </nav>
+      </header>
+    </>
   );
 };
