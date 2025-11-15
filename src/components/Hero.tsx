@@ -13,7 +13,7 @@ export const Hero = () => {
             <img 
               src={logo} 
               alt="CodeSpace Club Logo" 
-              className="w-[28rem] h-[28rem] sm:w-[32rem] sm:h-[32rem] object-contain"
+              className="w-[56rem] h-[56rem] sm:w-[64rem] sm:h-[64rem] object-contain"
             />
           </div>
 
