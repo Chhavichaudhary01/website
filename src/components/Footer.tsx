@@ -60,7 +60,7 @@ export const Footer = () => {
       {/* Orange Content Section */}
       <div className="bg-primary">
         <div className="container mx-auto px-4 sm:px-8 lg:px-20 py-16 sm:py-20">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 sm:gap-12 lg:gap-24">
             {/* Left: Club Description */}
             <div className="space-y-3 sm:space-y-4">
               <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-background">CodeSpace</h3>
