@@ -1,71 +1,62 @@
-import { Github, Linkedin, Mail, Instagram } from "lucide-react";
+import { Github, Linkedin, Instagram } from "lucide-react";
 
 const socialLinks = [
-  { icon: Github, href: "#", label: "GitHub" },
-  { icon: Linkedin, href: "#", label: "LinkedIn" },
-  { icon: Mail, href: "#", label: "Email" },
-  { icon: Instagram, href: "#", label: "Instagram" },
-];
-
-const quickLinks = [
-  { name: "Home", href: "/" },
-  { name: "About Us", href: "/about" },
-  { name: "Events", href: "/events" },
-  { name: "Team", href: "/team" },
+  { name: "LinkedIn", href: "#", icon: Linkedin },
+  { name: "Instagram", href: "#", icon: Instagram },
+  { name: "Twitter", href: "#", icon: () => (
+    <svg viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+    </svg>
+  ) },
+  { name: "Github", href: "#", icon: Github },
 ];
 
 export const Footer = () => {
   return (
-    <footer className="bg-primary mt-20">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* About Section */}
-          <div className="space-y-4">
-            <h3 className="text-2xl font-bold text-white">CODESPACE CLUB</h3>
-            <p className="text-white/90 text-sm leading-relaxed">
-              We believe in the transformative power of technology. Join us in shaping the future, one line of code at a time.
-            </p>
-          </div>
+    <footer className="mt-20">
+      {/* Giant CODESPACE Text Section */}
+      <div className="min-h-[50vh] flex items-center justify-start bg-background px-6 sm:px-12 lg:px-20 py-20">
+        <h2 className="text-[12vw] sm:text-[10vw] lg:text-[8vw] xl:text-[7vw] font-black italic text-primary leading-none tracking-tighter">
+          CODESPACE
+        </h2>
+      </div>
 
-          {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Quick Links</h4>
-            <ul className="space-y-2">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-white/80 hover:text-white transition-colors text-sm"
-                  >
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
+      {/* Orange Content Section */}
+      <div className="bg-primary">
+        <div className="container mx-auto px-6 sm:px-12 lg:px-20 py-12 sm:py-16">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            {/* Left: Club Description */}
+            <div className="space-y-4">
+              <h3 className="text-2xl sm:text-3xl font-bold text-background">CodeSpace</h3>
+              <p className="text-background text-base sm:text-lg leading-relaxed font-medium">
+                At CodeSpace Club, we believe in the transformative power of coding.
+                <br /><br />
+                Whether you're a seasoned developer or a curious beginner, our community is the perfect place to ignite your passion and expand your skills.
+              </p>
+            </div>
 
-          {/* Social Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-white">Follow Us</h4>
-            <div className="flex gap-4">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.label}
-                  href={social.href}
-                  aria-label={social.label}
-                  className="w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-all duration-300 hover:scale-110"
-                >
-                  <social.icon className="w-5 h-5 text-white" />
-                </a>
-              ))}
+            {/* Right: Social Links */}
+            <div className="space-y-6">
+              <h4 className="text-xl sm:text-2xl font-bold text-background">Follow Us</h4>
+              <ul className="space-y-3">
+                {socialLinks.map((social) => (
+                  <li key={social.name}>
+                    <a
+                      href={social.href}
+                      className="flex items-center gap-3 text-background hover:text-background/80 transition-colors group"
+                    >
+                      <span className="flex items-center justify-center">
+                        <social.icon className="w-5 h-5" />
+                      </span>
+                      <span className="text-base sm:text-lg font-semibold underline group-hover:no-underline">
+                        {social.name}
+                      </span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-        </div>
-
-        <div className="mt-8 pt-8 border-t border-white/20 text-center">
-          <p className="text-white/70 text-sm">
-            © {new Date().getFullYear()} CodeSpace Club. All rights reserved.
-          </p>
         </div>
       </div>
     </footer>
